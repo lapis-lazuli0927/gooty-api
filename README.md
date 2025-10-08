@@ -1,24 +1,86 @@
-# README
+# Gooty API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails APIアプリケーションです。
 
-Things you may want to cover:
+## 必要な環境
 
-* Ruby version
+- Docker
+- Docker Compose
 
-* System dependencies
+## セットアップ
 
-* Configuration
+### Dockerコンテナの起動
 
-* Database creation
+```bash
+# コンテナのビルドと起動
+docker compose up --build
 
-* Database initialization
+# バックグラウンドで起動
+docker compose up -d --build
+```
 
-* How to run the test suite
+### データベースのセットアップ
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+# データベースの作成とマイグレーション実行
+docker compose exec api rails db:create
+docker compose exec api rails db:migrate
 
-* Deployment instructions
+# シードデータの投入（必要に応じて）
+docker compose exec api rails db:seed
+```
 
-* ...
+## 開発作業
+
+### Railsコンソールの起動
+
+```bash
+# Railsコンソールを起動
+docker compose exec api rails console
+
+# または短縮形
+docker compose exec api rails c
+```
+
+### マイグレーションの実行
+
+```bash
+# 新しいマイグレーションファイルの生成
+docker compose exec api rails generate migration CreateUsers name:string email:string
+
+# マイグレーションの実行
+docker compose exec api rails db:migrate
+
+# マイグレーションのロールバック
+docker compose exec api rails db:rollback
+
+# 特定のステップ数だけロールバック
+docker compose exec api rails db:rollback STEP=2
+```
+
+### その他の便利なコマンド
+
+```bash
+# テストの実行
+docker compose exec api rails test
+
+# ルートの確認
+docker compose exec api rails routes
+
+# ログの確認
+docker compose logs api
+
+# コンテナの停止
+docker compose down
+
+# ボリュームも含めて完全に削除
+docker compose down -v
+```
+
+## アクセス情報
+
+- API: http://localhost:3002
+- データベース: localhost:3308 (MySQL)
+  - ユーザー名: gooty
+  - パスワード: password
+  - データベース名: gooty_development
