@@ -9,11 +9,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # API routes
-  namespace :api do
-    namespace :v1 do
-      # Add your API routes here
-    end
-  end
+  resources :demo_shops, only: [:index, :show]
 
   # Defines the root path route ("/")
   # root "posts#index"
