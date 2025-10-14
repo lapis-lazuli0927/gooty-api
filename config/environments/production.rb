@@ -83,4 +83,14 @@ Rails.application.configure do
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # Renderのホスト名を許可
+  config.hosts << "gooty-api.onrender.com"
+  
+  # 環境変数で追加のホスト名を指定可能にする
+  if ENV["ALLOWED_HOSTS"].present?
+    ENV["ALLOWED_HOSTS"].split(",").each do |host|
+      config.hosts << host.strip
+    end
+  end
 end
