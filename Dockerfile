@@ -10,7 +10,7 @@ RUN apk add --no-cache \
 
 WORKDIR /app
 
-COPY Gemfile ./
+COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
 COPY . .
