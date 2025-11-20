@@ -112,3 +112,4 @@ config/credentials/
 # Ignore temporary files
 *.tmp
 *.temp
+
