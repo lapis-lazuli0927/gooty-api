@@ -49,7 +49,7 @@ class StardustsController < ApplicationController
   end
 
   def stardust_params
-    params.require(:stardust).permit(:value)
+    params.require(:stardust).permit(:value, :memo)
   end
 end
 
