@@ -1,0 +1,2 @@
+class Stardust < ApplicationRecord
+end

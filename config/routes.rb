@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   # API routes
   resources :demo_shops, only: [:index, :show]
+  resources :stardusts, only: [:index, :create, :show, :update, :destroy]
 
   # Defines the root path route ("/")
   # root "posts#index"
