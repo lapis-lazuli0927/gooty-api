@@ -12,3 +12,8 @@ lint:
 decorators:
   - '@redocly/cli/lib/decorators/remove-unused-components'
 
+theme:
+  openapi:
+    tryItOut:
+      enabled: true
+

@@ -70,15 +70,20 @@ jobs:
             --output doc/openapi.bundled.yaml \
             --ext yaml
 
-      - name: Install Redoc CLI
-        run: npm install -g redoc-cli
-
-      - name: Build HTML documentation
+      - name: Build HTML documentation with Try It Out
         run: |
-          # バンドルしたOpenAPIファイルを使ってHTMLを生成
-          redoc-cli bundle doc/openapi.bundled.yaml \
-            --output doc/api-documentation.html \
-            --title "Gooty API Documentation"
+          # Redocly CLIでTry It Out機能付きのHTMLを生成を試行
+          if redocly build-docs doc/openapi.yaml --output doc/api-documentation.html 2>/dev/null; then
+            echo "Redocly CLI build-docs succeeded"
+          else
+            echo "Redocly CLI build-docs failed, using Redoc with Try It Out enabled"
+            npm install -g redoc-cli
+            # RedocでTry It Out機能を有効にしてHTMLを生成
+            redoc-cli bundle doc/openapi.bundled.yaml \
+              --output doc/api-documentation.html \
+              --title "Gooty API Documentation" \
+              --options '{"tryItOutEnabled": true, "hideDownloadButton": false}'
+          fi
 
       - name: Upload bundled OpenAPI
         uses: actions/upload-artifact@v4
