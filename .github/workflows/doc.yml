@@ -61,6 +61,9 @@ jobs:
       - name: Install Redocly CLI
         run: npm install -g @redocly/cli@latest
 
+      - name: Lint with Redocly CLI
+        run: redocly lint doc/openapi.yaml
+
       - name: Bundle OpenAPI
         run: |
           redocly bundle doc/openapi.yaml \
