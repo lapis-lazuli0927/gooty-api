@@ -25,6 +25,14 @@
               $ref: '../components/schemas/common.yaml#/ErrorResponse'
             example:
               error: Bad request
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error
 
 /up:
   get:
@@ -55,13 +63,10 @@
             example:
               error: Bad request
       '500':
-        description: エラー
+        description: サーバーエラー
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                error:
-                  type: string
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
             example:
               error: Internal server error

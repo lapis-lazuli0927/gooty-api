@@ -33,6 +33,14 @@
               $ref: '../components/schemas/common.yaml#/ErrorResponse'
             example:
               error: Bad request
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error
 
   post:
     summary: Stardust作成
@@ -73,6 +81,22 @@
                 memo: テストメモ
                 created_at: '2024-11-20T10:00:00.000Z'
                 updated_at: '2024-11-20T10:00:00.000Z'
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
+      '401':
+        description: 認証エラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Unauthorized
       '422':
         description: バリデーションエラー
         content:
@@ -82,6 +106,14 @@
             example:
               errors:
                 - "Value can't be blank"
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error
 
 /stardusts/{id}:
   get:
@@ -116,6 +148,14 @@
                 memo: テストメモ
                 created_at: '2024-11-20T10:00:00.000Z'
                 updated_at: '2024-11-20T10:00:00.000Z'
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
       '404':
         description: Stardustが見つからない場合
         content:
@@ -124,6 +164,14 @@
               $ref: '../components/schemas/common.yaml#/ErrorResponse'
             example:
               error: Stardust not found
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error
 
   put:
     summary: Stardust更新
@@ -172,6 +220,22 @@
                 memo: 更新されたメモ
                 created_at: '2024-11-20T10:00:00.000Z'
                 updated_at: '2024-11-20T11:00:00.000Z'
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
+      '401':
+        description: 認証エラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Unauthorized
       '404':
         description: Stardustが見つからない場合
         content:
@@ -189,6 +253,14 @@
             example:
               errors:
                 - "Value can't be blank"
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error
 
   patch:
     summary: Stardust部分更新
@@ -237,6 +309,22 @@
                 memo: 更新されたメモ
                 created_at: '2024-11-20T10:00:00.000Z'
                 updated_at: '2024-11-20T11:00:00.000Z'
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
+      '401':
+        description: 認証エラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Unauthorized
       '404':
         description: Stardustが見つからない場合
         content:
@@ -254,6 +342,14 @@
             example:
               errors:
                 - "Value can't be blank"
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error
 
   delete:
     summary: Stardust削除
@@ -282,6 +378,14 @@
                   type: string
             example:
               message: Stardust deleted successfully
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
       '404':
         description: Stardustが見つからない場合
         content:
@@ -290,12 +394,11 @@
               $ref: '../components/schemas/common.yaml#/ErrorResponse'
             example:
               error: Stardust not found
-      '422':
-        description: 削除エラー
+      '500':
+        description: サーバーエラー
         content:
           application/json:
             schema:
-              $ref: '../components/schemas/common.yaml#/ValidationErrorResponse'
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
             example:
-              errors:
-                - Error message
+              error: Internal server error
