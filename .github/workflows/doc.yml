@@ -70,10 +70,27 @@ jobs:
             --output doc/openapi.bundled.yaml \
             --ext yaml
 
+      - name: Install Redoc CLI
+        run: npm install -g redoc-cli
+
+      - name: Build HTML documentation
+        run: |
+          # バンドルしたOpenAPIファイルを使ってHTMLを生成
+          redoc-cli bundle doc/openapi.bundled.yaml \
+            --output doc/api-documentation.html \
+            --title "Gooty API Documentation"
+
       - name: Upload bundled OpenAPI
         uses: actions/upload-artifact@v4
         with:
           name: openapi-bundled
           path: doc/openapi.bundled.yaml
+          retention-days: 30
+
+      - name: Upload HTML documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-documentation-html
+          path: doc/api-documentation.html
           retention-days: 30
 
