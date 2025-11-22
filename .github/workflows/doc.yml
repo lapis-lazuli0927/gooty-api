@@ -30,11 +30,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Spectral CLI
-        run: npm install -g @stoplight/spectral-cli@latest
+      - name: Install Redocly CLI
+        run: npm install -g @redocly/cli@latest
 
-      - name: Run Spectral lint
-        run: spectral lint doc/openapi.yaml
+      - name: Lint with Redocly CLI
+        run: redocly lint doc/openapi.yaml
 
   build:
     name: Build OpenAPI
@@ -51,9 +51,6 @@ jobs:
 
       - name: Install Redocly CLI
         run: npm install -g @redocly/cli@latest
-
-      - name: Lint with Redocly CLI
-        run: redocly lint doc/openapi.yaml
 
       - name: Bundle OpenAPI
         run: |
