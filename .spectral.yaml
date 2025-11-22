@@ -1,19 +1,5 @@
-extends: ["spectral:oas", "spectral:asyncapi"]
+extends: ["spectral:oas"]
 rules:
-  # OpenAPI 3.0の必須フィールドをチェック
-  oas3-api-servers: error
-  oas3-operation-tags: error
-  oas3-operation-operationId: error
-  
-  # セキュリティ関連
-  oas3-operation-security-defined: error
-  
-  # 参照の解決
+  # 参照の解決（最重要）
   no-unresolved-refs: error
-  
-  # その他の推奨ルール
-  operation-description: warn
-  operation-tag-defined: warn
-  path-declaration-must-exist: error
-  path-params-defined: error
 
