@@ -34,16 +34,7 @@ jobs:
         run: npm install -g @stoplight/spectral-cli@latest
 
       - name: Run Spectral lint
-        run: |
-          spectral lint doc/openapi.yaml \
-            --format json \
-            --output /tmp/spectral-results.json || true
-          
-          # 結果を表示
-          cat /tmp/spectral-results.json || echo "No issues found"
-          
-          # エラーがある場合は失敗
-          spectral lint doc/openapi.yaml
+        run: spectral lint doc/openapi.yaml
 
   build:
     name: Build OpenAPI
@@ -70,20 +61,8 @@ jobs:
             --output doc/openapi.bundled.yaml \
             --ext yaml
 
-      - name: Build HTML documentation with Try It Out
-        run: |
-          # Redocly CLIでTry It Out機能付きのHTMLを生成を試行
-          if redocly build-docs doc/openapi.yaml --output doc/api-documentation.html 2>/dev/null; then
-            echo "Redocly CLI build-docs succeeded"
-          else
-            echo "Redocly CLI build-docs failed, using Redoc with Try It Out enabled"
-            npm install -g redoc-cli
-            # RedocでTry It Out機能を有効にしてHTMLを生成
-            redoc-cli bundle doc/openapi.bundled.yaml \
-              --output doc/api-documentation.html \
-              --title "Gooty API Documentation" \
-              --options '{"tryItOutEnabled": true, "hideDownloadButton": false}'
-          fi
+      - name: Build HTML documentation
+        run: redocly build-docs doc/openapi.yaml --output doc/api-documentation.html
 
       - name: Upload bundled OpenAPI
         uses: actions/upload-artifact@v4
