@@ -25,6 +25,14 @@
                   memo: テストメモ
                   created_at: '2024-11-20T10:00:00.000Z'
                   updated_at: '2024-11-20T10:00:00.000Z'
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
 
   post:
     summary: Stardust作成

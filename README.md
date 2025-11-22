@@ -70,6 +70,13 @@ docker compose exec api rails routes
 # ログの確認
 docker compose logs api
 
+# OpenAPIドキュメントのlint
+# Spectral CLIでlint
+docker compose exec api spectral lint doc/openapi.yaml
+
+# Redocly CLIでlint
+docker compose exec api redocly lint doc/openapi.yaml
+
 # コンテナの停止
 docker compose down
 

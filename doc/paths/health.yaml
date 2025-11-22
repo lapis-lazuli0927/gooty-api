@@ -17,6 +17,14 @@
               status: ok
               timestamp: '2024-11-20T10:00:00.000Z'
               service: gooty-api
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
 
 /up:
   get:
@@ -38,6 +46,14 @@
                   type: string
             example:
               status: ok
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
       '500':
         description: エラー
         content:

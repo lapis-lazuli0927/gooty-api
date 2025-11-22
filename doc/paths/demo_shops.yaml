@@ -27,6 +27,14 @@
                   review_level: 4.5
                   created_at: '2024-01-15T10:00:00Z'
                   updated_at: '2024-01-15T10:00:00Z'
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
 
 /demo_shops/{id}:
   get:
