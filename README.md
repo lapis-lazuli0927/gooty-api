@@ -84,3 +84,9 @@ docker compose down -v
   - ユーザー名: gooty
   - パスワード: password
   - データベース名: gooty_development
+
+## APIドキュメント
+
+詳細なAPIドキュメントは [doc/API_DOCUMENTATION.md](./doc/API_DOCUMENTATION.md) を参照してください。
+
+OpenAPI仕様書は [doc/openapi.yaml](./doc/openapi.yaml) を参照してください。

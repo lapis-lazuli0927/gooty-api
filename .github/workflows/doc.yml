@@ -1,0 +1,76 @@
+name: OpenAPI Documentation
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'doc/**'
+      - '.github/workflows/doc.yml'
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'doc/**'
+      - '.github/workflows/doc.yml'
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint OpenAPI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Spectral CLI
+        run: npm install -g @stoplight/spectral-cli@latest
+
+      - name: Run Spectral lint
+        run: |
+          spectral lint doc/openapi.yaml \
+            --format json \
+            --output /tmp/spectral-results.json || true
+          
+          # 結果を表示
+          cat /tmp/spectral-results.json || echo "No issues found"
+          
+          # エラーがある場合は失敗
+          spectral lint doc/openapi.yaml
+
+  build:
+    name: Build OpenAPI
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Redocly CLI
+        run: npm install -g @redocly/cli@latest
+
+      - name: Bundle OpenAPI
+        run: |
+          redocly bundle doc/openapi.yaml \
+            --output doc/openapi.bundled.yaml \
+            --ext yaml
+
+      - name: Upload bundled OpenAPI
+        uses: actions/upload-artifact@v4
+        with:
+          name: openapi-bundled
+          path: doc/openapi.bundled.yaml
+          retention-days: 30
+

@@ -1,0 +1,33 @@
+/health:
+  get:
+    summary: ヘルスチェック
+    description: APIのヘルスチェックエンドポイント
+    operationId: healthCheck
+    tags:
+      - Health
+    security: []
+    responses:
+      '200':
+        description: 正常
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/health.yaml#/HealthResponse'
+            example:
+              status: ok
+              timestamp: '2024-11-20T10:00:00.000Z'
+              service: gooty-api
+
+/up:
+  get:
+    summary: Railsヘルスチェック
+    description: アプリケーションが正常に起動している場合に200を返します
+    operationId: railsHealthCheck
+    tags:
+      - Health
+    security: []
+    responses:
+      '200':
+        description: 正常
+      '500':
+        description: エラー

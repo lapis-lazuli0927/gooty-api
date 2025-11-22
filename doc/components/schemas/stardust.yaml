@@ -1,0 +1,33 @@
+Stardust:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 1
+    value:
+      type: integer
+      example: 100
+    memo:
+      type: string
+      nullable: true
+      example: テストメモ
+    created_at:
+      type: string
+      format: date-time
+      example: '2024-11-20T10:00:00.000Z'
+    updated_at:
+      type: string
+      format: date-time
+      example: '2024-11-20T10:00:00.000Z'
+
+StardustInput:
+  type: object
+  properties:
+    value:
+      type: integer
+      example: 100
+    memo:
+      type: string
+      nullable: true
+      example: テストメモ
+

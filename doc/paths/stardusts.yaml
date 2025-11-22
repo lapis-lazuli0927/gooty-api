@@ -1,0 +1,292 @@
+/stardusts:
+  get:
+    summary: Stardust一覧取得
+    description: Stardustの一覧を取得します
+    operationId: getStardusts
+    tags:
+      - Stardusts
+    security: []
+    responses:
+      '200':
+        description: 正常
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '../components/schemas/stardust.yaml#/Stardust'
+            example:
+              data:
+                - id: 1
+                  value: 100
+                  memo: テストメモ
+                  created_at: '2024-11-20T10:00:00.000Z'
+                  updated_at: '2024-11-20T10:00:00.000Z'
+
+  post:
+    summary: Stardust作成
+    description: 新しいStardustを作成します
+    operationId: createStardust
+    tags:
+      - Stardusts
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - stardust
+            properties:
+              stardust:
+                $ref: '../components/schemas/stardust.yaml#/StardustInput'
+          example:
+            stardust:
+              value: 100
+              memo: テストメモ
+    responses:
+      '201':
+        description: 作成成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '../components/schemas/stardust.yaml#/Stardust'
+            example:
+              data:
+                id: 1
+                value: 100
+                memo: テストメモ
+                created_at: '2024-11-20T10:00:00.000Z'
+                updated_at: '2024-11-20T10:00:00.000Z'
+      '422':
+        description: バリデーションエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ValidationErrorResponse'
+            example:
+              errors:
+                - "Value can't be blank"
+
+/stardusts/{id}:
+  get:
+    summary: Stardust詳細取得
+    description: 指定されたIDのStardust情報を取得します
+    operationId: getStardust
+    tags:
+      - Stardusts
+    security: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Stardust ID
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: 正常
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '../components/schemas/stardust.yaml#/Stardust'
+            example:
+              data:
+                id: 1
+                value: 100
+                memo: テストメモ
+                created_at: '2024-11-20T10:00:00.000Z'
+                updated_at: '2024-11-20T10:00:00.000Z'
+      '404':
+        description: Stardustが見つからない場合
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Stardust not found
+
+  put:
+    summary: Stardust更新
+    description: 指定されたIDのStardustを更新します
+    operationId: updateStardust
+    tags:
+      - Stardusts
+    security: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Stardust ID
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - stardust
+            properties:
+              stardust:
+                $ref: '../components/schemas/stardust.yaml#/StardustInput'
+          example:
+            stardust:
+              value: 200
+              memo: 更新されたメモ
+    responses:
+      '200':
+        description: 更新成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '../components/schemas/stardust.yaml#/Stardust'
+            example:
+              data:
+                id: 1
+                value: 200
+                memo: 更新されたメモ
+                created_at: '2024-11-20T10:00:00.000Z'
+                updated_at: '2024-11-20T11:00:00.000Z'
+      '404':
+        description: Stardustが見つからない場合
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Stardust not found
+      '422':
+        description: バリデーションエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ValidationErrorResponse'
+            example:
+              errors:
+                - "Value can't be blank"
+
+  patch:
+    summary: Stardust部分更新
+    description: 指定されたIDのStardustを部分更新します
+    operationId: patchStardust
+    tags:
+      - Stardusts
+    security: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Stardust ID
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - stardust
+            properties:
+              stardust:
+                $ref: '../components/schemas/stardust.yaml#/StardustInput'
+          example:
+            stardust:
+              value: 200
+              memo: 更新されたメモ
+    responses:
+      '200':
+        description: 更新成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '../components/schemas/stardust.yaml#/Stardust'
+            example:
+              data:
+                id: 1
+                value: 200
+                memo: 更新されたメモ
+                created_at: '2024-11-20T10:00:00.000Z'
+                updated_at: '2024-11-20T11:00:00.000Z'
+      '404':
+        description: Stardustが見つからない場合
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Stardust not found
+      '422':
+        description: バリデーションエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ValidationErrorResponse'
+            example:
+              errors:
+                - "Value can't be blank"
+
+  delete:
+    summary: Stardust削除
+    description: 指定されたIDのStardustを削除します
+    operationId: deleteStardust
+    tags:
+      - Stardusts
+    security: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Stardust ID
+        schema:
+          type: integer
+          example: 1
+    responses:
+      '200':
+        description: 削除成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: Stardust deleted successfully
+      '404':
+        description: Stardustが見つからない場合
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Stardust not found
+      '422':
+        description: 削除エラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ValidationErrorResponse'
+            example:
+              errors:
+                - Error message
