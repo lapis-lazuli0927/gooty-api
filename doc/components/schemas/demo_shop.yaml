@@ -1,28 +1,36 @@
 DemoShop:
   type: object
+  description: デモショップ情報を表すオブジェクト
   properties:
     id:
       type: integer
+      description: ショップの一意の識別子
       example: 1
     name:
       type: string
+      description: ショップ名
       example: Switch
     type:
       type: integer
+      description: ショップタイプ
       example: 1
     station:
       type: string
+      description: 最寄り駅名
       example: Shibuya Station
     review_level:
       type: number
       format: float
+      description: レビューレベル（評価値）
       example: 4.5
     created_at:
       type: string
       format: date-time
+      description: 作成日時
       example: '2024-01-15T10:00:00Z'
     updated_at:
       type: string
       format: date-time
+      description: 更新日時
       example: '2024-01-15T10:00:00Z'
 

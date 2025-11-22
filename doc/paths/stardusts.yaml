@@ -272,7 +272,8 @@
               properties:
                 message:
                   type: string
-                  example: Stardust deleted successfully
+            example:
+              message: Stardust deleted successfully
       '404':
         description: Stardustが見つからない場合
         content:
