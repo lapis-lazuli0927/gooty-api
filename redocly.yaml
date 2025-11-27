@@ -1,0 +1,11 @@
+extends:
+  - recommended
+
+rules:
+  no-unresolved-refs: error
+  operation-operationId-unique: error
+  path-params-defined: error
+
+decorators:
+  '@redocly/cli/lib/decorators/remove-unused-components': on
+

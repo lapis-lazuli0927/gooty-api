@@ -1,0 +1,42 @@
+Stardust:
+  type: object
+  description: Stardust情報を表すオブジェクト
+  properties:
+    id:
+      type: integer
+      description: Stardustの一意の識別子
+      example: 1
+    value:
+      type: integer
+      description: Stardustの値
+      example: 100
+    memo:
+      type: string
+      nullable: true
+      description: メモ（任意）
+      example: テストメモ
+    created_at:
+      type: string
+      format: date-time
+      description: 作成日時
+      example: '2024-11-20T10:00:00.000Z'
+    updated_at:
+      type: string
+      format: date-time
+      description: 更新日時
+      example: '2024-11-20T10:00:00.000Z'
+
+StardustInput:
+  type: object
+  description: Stardust作成・更新時に使用する入力オブジェクト
+  properties:
+    value:
+      type: integer
+      description: Stardustの値（必須）
+      example: 100
+    memo:
+      type: string
+      nullable: true
+      description: メモ（任意）
+      example: テストメモ
+

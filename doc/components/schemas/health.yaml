@@ -1,0 +1,18 @@
+HealthResponse:
+  type: object
+  description: ヘルスチェックレスポンスを表すオブジェクト
+  properties:
+    status:
+      type: string
+      description: サービスステータス
+      example: ok
+    timestamp:
+      type: string
+      format: date-time
+      description: レスポンス生成日時
+      example: '2024-11-20T10:00:00.000Z'
+    service:
+      type: string
+      description: サービス名
+      example: gooty-api
+

@@ -1,0 +1,23 @@
+ErrorResponse:
+  type: object
+  description: エラーレスポンスを表すオブジェクト
+  properties:
+    error:
+      type: string
+      description: エラーメッセージ
+      example: Stardust not found
+
+ValidationErrorResponse:
+  type: object
+  description: バリデーションエラーレスポンスを表すオブジェクト
+  properties:
+    errors:
+      type: array
+      description: バリデーションエラーメッセージの配列
+      items:
+        type: string
+        description: エラーメッセージ
+      example:
+        - "Value can't be blank"
+        - "Memo is too long"
+

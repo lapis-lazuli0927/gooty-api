@@ -8,6 +8,9 @@ RUN apk add --no-cache \
     nodejs \
     npm
 
+# Install OpenAPI lint tools
+RUN npm install -g @stoplight/spectral-cli@latest @redocly/cli@latest
+
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
