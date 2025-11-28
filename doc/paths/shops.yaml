@@ -1,0 +1,47 @@
+/shops:
+  get:
+    summary: ショップの一覧を返すAPI
+    description: ショップの一覧を返します
+    operationId: getShopsList
+    tags:
+      - Shops
+    security: []
+    responses:
+      '200':
+        description: 正常
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '../components/schemas/shops.yaml#/Shops'
+            example:
+              data:
+                - id: 1
+                  name: "Switch"
+                  station_name: "武蔵小金井駅"
+                  address: "東京都小金井市本町5-18-15"
+                  tel: "042-201-1478"
+                  memo: "美味しいワインバルです"
+                  review: 5
+                  is_instagram: boolean
+    
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example: 
+              error: "投稿が見つかりませんでした。"
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error

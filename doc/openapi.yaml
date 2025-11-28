@@ -33,6 +33,8 @@ paths:
     $ref: './paths/stardusts.yaml#/~1stardusts'
   /stardusts/{id}:
     $ref: './paths/stardusts.yaml#/~1stardusts~1{id}'
+  /shops:
+    $ref: './paths/shops.yaml#/~1shops'
 
 components:
   schemas:
@@ -48,6 +50,8 @@ components:
       $ref: './components/schemas/common.yaml#/ErrorResponse'
     ValidationErrorResponse:
       $ref: './components/schemas/common.yaml#/ValidationErrorResponse'
+    Shops:
+      $ref: './components/schemas/shops.yaml#/Shops'
 
 tags:
   - name: Health
@@ -56,3 +60,5 @@ tags:
     description: デモショップ関連のエンドポイント
   - name: Stardusts
     description: Stardust関連のエンドポイント
+  - name: Shops
+    description: ショップの一覧を返すエンドポイント
