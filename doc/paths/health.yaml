@@ -1,0 +1,72 @@
+/health:
+  get:
+    summary: ヘルスチェック
+    description: APIのヘルスチェックエンドポイント
+    operationId: healthCheck
+    tags:
+      - Health
+    security: []
+    responses:
+      '200':
+        description: 正常
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/health.yaml#/HealthResponse'
+            example:
+              status: ok
+              timestamp: '2024-11-20T10:00:00.000Z'
+              service: gooty-api
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error
+
+/up:
+  get:
+    summary: Railsヘルスチェック
+    description: アプリケーションが正常に起動している場合に200を返します
+    operationId: railsHealthCheck
+    tags:
+      - Health
+    security: []
+    responses:
+      '200':
+        description: 正常
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+            example:
+              status: ok
+      '400':
+        description: リクエストエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Bad request
+      '500':
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+            example:
+              error: Internal server error

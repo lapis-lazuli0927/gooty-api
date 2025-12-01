@@ -1,0 +1,7 @@
+- name: Health
+  description: ヘルスチェック関連のエンドポイント
+- name: Demo Shops
+  description: デモショップ関連のエンドポイント
+- name: Stardusts
+  description: Stardust関連のエンドポイント
+
