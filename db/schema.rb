@@ -10,11 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_20_102111) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_21_080428) do
+  create_table "shops", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", limit: 30, null: false
+    t.text "url"
+    t.bigint "station_id"
+    t.string "address", limit: 30
+    t.string "tel"
+    t.text "memo"
+    t.integer "review"
+    t.boolean "is_ai_generated", null: false
+    t.boolean "is_instagram", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["station_id"], name: "index_shops_on_station_id"
+  end
+
   create_table "stardusts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "memo"
   end
+
+  create_table "stations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", limit: 30, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "shops", "stations"
 end
