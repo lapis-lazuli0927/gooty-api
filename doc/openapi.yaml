@@ -17,41 +17,41 @@ servers:
         default: localhost
         description: APIサーバーのホスト名
       port:
-        default: '3002'
+        default: "3002"
         description: APIサーバーのポート番号
 
 paths:
   /health:
-    $ref: './paths/health.yaml#/~1health'
+    $ref: "./paths/health.yaml#/~1health"
   /up:
-    $ref: './paths/health.yaml#/~1up'
+    $ref: "./paths/health.yaml#/~1up"
   /demo_shops:
-    $ref: './paths/demo_shops.yaml#/~1demo_shops'
+    $ref: "./paths/demo_shops.yaml#/~1demo_shops"
   /demo_shops/{id}:
-    $ref: './paths/demo_shops.yaml#/~1demo_shops~1{id}'
+    $ref: "./paths/demo_shops.yaml#/~1demo_shops~1{id}"
   /stardusts:
-    $ref: './paths/stardusts.yaml#/~1stardusts'
+    $ref: "./paths/stardusts.yaml#/~1stardusts"
   /stardusts/{id}:
-    $ref: './paths/stardusts.yaml#/~1stardusts~1{id}'
+    $ref: "./paths/stardusts.yaml#/~1stardusts~1{id}"
   /shops:
-    $ref: './paths/shops.yaml#/~1shops'
+    $ref: "./paths/shops.yaml#/~1shops"
 
 components:
   schemas:
     HealthResponse:
-      $ref: './components/schemas/health.yaml#/HealthResponse'
+      $ref: "./components/schemas/health.yaml#/HealthResponse"
     DemoShop:
-      $ref: './components/schemas/demo_shop.yaml#/DemoShop'
+      $ref: "./components/schemas/demo_shop.yaml#/DemoShop"
     Stardust:
-      $ref: './components/schemas/stardust.yaml#/Stardust'
+      $ref: "./components/schemas/stardust.yaml#/Stardust"
     StardustInput:
-      $ref: './components/schemas/stardust.yaml#/StardustInput'
+      $ref: "./components/schemas/stardust.yaml#/StardustInput"
     ErrorResponse:
-      $ref: './components/schemas/common.yaml#/ErrorResponse'
+      $ref: "./components/schemas/common.yaml#/ErrorResponse"
     ValidationErrorResponse:
-      $ref: './components/schemas/common.yaml#/ValidationErrorResponse'
+      $ref: "./components/schemas/common.yaml#/ValidationErrorResponse"
     Shops:
-      $ref: './components/schemas/shops.yaml#/Shops'
+      $ref: "./components/schemas/shops.yaml#/Shops"
 
 tags:
   - name: Health
