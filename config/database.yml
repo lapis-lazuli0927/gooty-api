@@ -49,7 +49,11 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: gooty_production
-  username: gooty
-  password: <%= ENV["GOOTY_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  database: <%= ENV.fetch("GOOTY_DATABASE_NAME") { "gooty_production" } %>
+  username: <%= ENV.fetch("GOOTY_DATABASE_USERNAME") { "gooty" } %>
+  password: <%= ENV.fetch("GOOTY_DATABASE_PASSWORD") { "" } %>
+  host: <%= ENV.fetch("GOOTY_DATABASE_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("GOOTY_DATABASE_PORT") { "5432" } %>

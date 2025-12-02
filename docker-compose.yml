@@ -14,7 +14,7 @@ services:
 
   api:
     build: .
-    command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: sh -c "bundle config set --local without 'production' && bundle install --without production && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/app
     ports:
@@ -24,6 +24,7 @@ services:
     environment:
       - RAILS_ENV=development
       - DATABASE_URL=mysql2://gooty:password@db:3306/gooty_development
+      - BUNDLE_WITHOUT=production
 
 volumes:
   mysql_data:

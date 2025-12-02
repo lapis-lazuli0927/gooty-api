@@ -14,7 +14,8 @@ RUN npm install -g @stoplight/spectral-cli@latest @redocly/cli@latest
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
+RUN bundle config set --local without 'production' && \
+    bundle install
 
 COPY . .
 
