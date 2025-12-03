@@ -31,7 +31,7 @@
                   review: 5
                   is_instagram: true
                   is_ai_generated: true
-                  created_at: '2024-01-15T10:00:00Z'
+                  created_at: "2024-01-15T10:00:00Z"
               success: true
 
       "400":
@@ -41,7 +41,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
               success:
-                  type: boolean
+                type: boolean
             example:
               error: "投稿が見つかりませんでした。"
               success: false
@@ -52,7 +52,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
               success:
-                  type: boolean
+                type: boolean
             example:
               error: Internal server error
               success: false
