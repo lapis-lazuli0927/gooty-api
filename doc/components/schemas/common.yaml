@@ -7,7 +7,7 @@ ErrorResponse:
       description: エラーメッセージ
       example: Stardust not found
     success:
-      type: true
+      type: boolean
 
 ValidationErrorResponse:
   type: object
