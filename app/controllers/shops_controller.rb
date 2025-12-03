@@ -1,5 +1,9 @@
 class ShopsController < ApplicationController
   def index
-    render json: { data: "ruri" }
+    shop = Shop.all
+    render json: { 
+      data: shop,
+      success: true
+  }
   end
 end
