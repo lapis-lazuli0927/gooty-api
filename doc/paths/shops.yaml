@@ -29,7 +29,9 @@
                   tel: "042-201-1478"
                   memo: "美味しいワインバルです"
                   review: 5
-                  is_instagram: boolean
+                  is_instagram: true
+                  is_ai_generated: true
+                  created_at: '2024-01-15T10:00:00Z'
               success: true
 
       "400":
@@ -38,13 +40,19 @@
           application/json:
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
+              success:
+                  type: boolean
             example:
               error: "投稿が見つかりませんでした。"
+              success: false
       "500":
         description: サーバーエラー
         content:
           application/json:
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
+              success:
+                  type: boolean
             example:
               error: Internal server error
+              success: false

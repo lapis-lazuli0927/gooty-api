@@ -6,6 +6,8 @@ ErrorResponse:
       type: string
       description: エラーメッセージ
       example: Stardust not found
+    success:
+      type: true
 
 ValidationErrorResponse:
   type: object
@@ -20,4 +22,3 @@ ValidationErrorResponse:
       example:
         - "Value can't be blank"
         - "Memo is too long"
-
