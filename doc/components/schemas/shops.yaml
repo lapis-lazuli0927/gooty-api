@@ -26,3 +26,10 @@ Shops:
       example: 5
     is_instagram:
       type: boolean
+    is_ai_generated:
+      type: boolean
+    created_at:
+      type: string
+      format: date-time
+      description: 作成日時
+      example: "2024-01-15T10:00:00Z"

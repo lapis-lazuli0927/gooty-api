@@ -7,7 +7,7 @@
       - Shops
     security: []
     responses:
-      '200':
+      "200":
         description: 正常
         content:
           application/json:
@@ -17,7 +17,9 @@
                 data:
                   type: array
                   items:
-                    $ref: '../components/schemas/shops.yaml#/Shops'
+                    $ref: "../components/schemas/shops.yaml#/Shops"
+                success:
+                  type: boolean
             example:
               data:
                 - id: 1
@@ -27,21 +29,30 @@
                   tel: "042-201-1478"
                   memo: "美味しいワインバルです"
                   review: 5
-                  is_instagram: boolean
-    
-      '400':
+                  is_instagram: true
+                  is_ai_generated: true
+                  created_at: "2024-01-15T10:00:00Z"
+              success: true
+
+      "400":
         description: リクエストエラー
         content:
           application/json:
             schema:
-              $ref: '../components/schemas/common.yaml#/ErrorResponse'
-            example: 
+              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+              success:
+                type: boolean
+            example:
               error: "投稿が見つかりませんでした。"
-      '500':
+              success: false
+      "500":
         description: サーバーエラー
         content:
           application/json:
             schema:
-              $ref: '../components/schemas/common.yaml#/ErrorResponse'
+              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+              success:
+                type: boolean
             example:
               error: Internal server error
+              success: false
