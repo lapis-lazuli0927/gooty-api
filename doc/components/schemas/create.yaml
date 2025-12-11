@@ -1,0 +1,45 @@
+AutoCreate:
+  type: object
+  description: |
+    自動情報取得のためのリクエストボディです。
+    is_instagramがtrueの場合、システムはInstagramから情報を取得します。
+  properties:
+    is_instagram:
+      type: boolean
+      description: Instagramから情報を取得するかどうか
+      example: true
+    is_ai_generated:
+      type: boolean
+      description: ai入力かどうか
+      example: true
+  required:
+    - is_instagram
+
+ManualCreate:
+  type: object
+  description: 新しいショップのデータ
+  properties:
+    name:
+      type: string
+      example: "Switch"
+    station_name:
+      type: string
+      example: "武蔵小金井駅"
+    address:
+      type: string
+      example: "東京都小金井市本町5-18-15"
+    tel:
+      type: string
+      example: "042-201-1478"
+    memo:
+      type: string
+      example: "美味しいワインバルです"
+    review:
+      type: integer
+      example: 5
+    is_instagram:
+      type: boolean
+    is_ai_generated:
+      type: boolean
+      description: ai入力かどうか
+      example: true
