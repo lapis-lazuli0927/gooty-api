@@ -56,3 +56,82 @@
             example:
               error: Internal server error
               success: false
+
+  post:
+    summary: 新しいショップを登録するAPI
+    description: |
+      新しいショップの情報を登録します。
+      このAPIは、以下の**いずれか**の形式のリクエストボディを受け付けます。
+      1. **手動入力パターン**: ショップの基本情報（`name`, `address` など）を手動で入力する場合。
+      2. **自動入力パターン**: 外部サービス（例: Instagram）から情報を自動取得する場合。この場合、リクエストボディには`is_instagram`のみを含みます。
+    operationId: CreateNewShop
+    tags:
+      - Shops
+    security: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            # oneOf を使用して、リクエストボディが複数のスキーマ定義のうちのいずれかに適合することを指定
+            oneOf:
+              - $ref: "../components/schemas/create.yaml#/ManualCreate" # 既存の手動入力スキーマ (仮にManualCreateとします)
+              - $ref: "../components/schemas/create.yaml#/AutoCreate" # 新たに定義する自動入力スキーマ
+            discriminator:
+              propertyName:
+                is_instagram # 識別子としてis_instagramを使用することが考えられますが、
+                # 今回のように必須プロパティの有無で判断できる場合は省略しても動作します。
+                # is_instagramは両方のパターンにあるため、より明確な識別子（例: mode: "manual" or "auto"）を
+                # 追加できれば理想的ですが、既存JSONを変更したくない場合はこのままoneOfで表現します。
+          examples: # 複数のパターンを明示するため、examplesを複数定義します
+            manualInputExample:
+              summary: 手動入力の例
+              value:
+                name: "Switch"
+                station_name: "武蔵小金井駅"
+                address: "東京都小金井市本町5-18-15"
+                tel: "042-201-1478"
+                memo: "美味しいワインバルです"
+                review: 5
+                is_instagram: true # または false
+                is_ai_generated: false
+            autoInputExample:
+              summary: 自動入力の例 (Instagramから情報取得)
+              value:
+                is_instagram: true
+                is_ai_generated: true
+                # その他の情報は空、またはサーバー側で外部サービスから取得
+    responses:
+      "201":
+        description: 新規ショップの作成に成功した場合
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "../components/schemas/shops.yaml#/Shops"
+                success:
+                  type: boolean
+            example:
+              success: true
+
+      "400":
+        description: リクエストデータのバリデーションエラーが発生した場合
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+            example:
+              error: "お店の名前は必須項目です。"
+              success: false
+
+      "500":
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+            example:
+              error: Internal server error
+              success: false
