@@ -88,6 +88,7 @@
               summary: 手動入力の例
               value:
                 name: "Switch"
+                url: "https://www.instagram.com/"
                 station_name: "武蔵小金井駅"
                 address: "東京都小金井市本町5-18-15"
                 tel: "042-201-1478"
