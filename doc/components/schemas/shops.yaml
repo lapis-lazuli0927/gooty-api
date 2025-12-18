@@ -9,6 +9,9 @@ Shops:
     name:
       type: string
       example: "Switch"
+    url:
+      type: string
+      example: "https://www.instagram.com/"
     station_name:
       type: string
       example: "武蔵小金井駅"

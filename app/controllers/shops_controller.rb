@@ -3,7 +3,7 @@ class ShopsController < ApplicationController
     shop = Shop.all
     render json: {
       data: shop.as_json(
-        except: [:url, :updated_at, :station_id],
+        except: [:updated_at, :station_id],
         methods: :station_name
         ),
       success: true
@@ -35,6 +35,6 @@ class ShopsController < ApplicationController
   private
  
   def shop_params
-    params.permit(:name,:station_name,:address,:tel,:memo,:review,:is_instagram,:is_ai_generated)
+    params.permit(:name,:url,:station_name,:address,:tel,:memo,:review,:is_instagram,:is_ai_generated)
   end
 end
