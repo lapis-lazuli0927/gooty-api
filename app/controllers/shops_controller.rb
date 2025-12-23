@@ -37,4 +37,23 @@ class ShopsController < ApplicationController
   def shop_params
     params.permit(:name,:url,:station_name,:address,:tel,:memo,:review,:is_instagram,:is_ai_generated)
   end
+
+  def show
+    @shop = Shop.find_by(id: params[:id])
+
+    if @shop
+      render json: {
+        data: @shop.as_json(
+          except: [:updated_at, :station_id, :is_ai_generated, :created_at, :url],
+          methods: :station_name
+        ),
+        success: true
+      }
+    else
+      render json: {
+        error: "shop not found",
+        success: false
+      }, status: :not_found
+    end
+  end
 end
