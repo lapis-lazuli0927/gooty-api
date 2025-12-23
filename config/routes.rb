@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   get "shops" => "shops#index"
   post "shops" => "shops#create"
+  get "shops/:id" => "shops#show"
 end
