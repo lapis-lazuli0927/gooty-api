@@ -32,12 +32,6 @@ class ShopsController < ApplicationController
     end
   end
 
-  private
- 
-  def shop_params
-    params.permit(:name,:url,:station_name,:address,:tel,:memo,:review,:is_instagram,:is_ai_generated)
-  end
-
   def show
     @shop = Shop.find_by(id: params[:id])
 
@@ -56,4 +50,12 @@ class ShopsController < ApplicationController
       }, status: :not_found
     end
   end
+
+  private
+ 
+  def shop_params
+    params.permit(:name,:url,:station_name,:address,:tel,:memo,:review,:is_instagram,:is_ai_generated)
+  end
+
+
 end
