@@ -35,6 +35,8 @@ paths:
     $ref: "./paths/stardusts.yaml#/~1stardusts~1{id}"
   /shops:
     $ref: "./paths/shops.yaml#/~1shops"
+  /shops/{id}:
+    $ref: "./paths/shops.yaml#/~1shops~1{id}"
 
 components:
   schemas:
