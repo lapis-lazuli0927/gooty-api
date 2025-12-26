@@ -226,6 +226,7 @@
                   type: string
             example:
               message: Shop deleted successfully
+              success: true
       "400":
         description: リクエストエラー
         content:
@@ -241,7 +242,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Stardust not found
+              error: Shop not found
       "500":
         description: サーバーエラー
         content:
