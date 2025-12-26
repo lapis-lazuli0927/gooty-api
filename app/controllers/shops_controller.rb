@@ -51,6 +51,28 @@ class ShopsController < ApplicationController
     end
   end
 
+  def destroy
+    @shop = Shop.find_by(id: params[:id])
+
+    if @shop
+      if @shop.destroy
+        render json: {
+          message: "Shop deleted successfully",
+          success: true
+        }
+      else
+        render json: {
+          error: "Failed to delete shop",
+        }, status: :unprocessable_entity
+      end
+    else
+      render json: {
+        error: "shop not found",
+      }, status: :not_found
+    end
+  end
+  end
+
   private
  
   def shop_params
