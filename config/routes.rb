@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   get "shops" => "shops#index"
   post "shops" => "shops#create"
   get "shops/:id" => "shops#show"
+  delete "shops/:id" => "shops#destroy"
 end
