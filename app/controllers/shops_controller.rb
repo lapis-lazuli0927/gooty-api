@@ -71,7 +71,7 @@ class ShopsController < ApplicationController
       }, status: :not_found
     end
   end
-  end
+
 
   private
  
