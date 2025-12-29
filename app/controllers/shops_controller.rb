@@ -27,15 +27,15 @@ class ShopsController < ApplicationController
       shops_attributes = shops_attributes.merge(station_id: station.id)
     end
     
-    @shop = Shop.new(shops_attributes)
-    if @shop.save
+    shop = Shop.new(shops_attributes)
+    if shop.save
       render json: {
         success: true
       }, status: :created
     else
       render json: {
         success: false,
-        errors: @shop.errors.full_messages
+        errors: shop.errors.full_messages
       }, status: :bad_request
     end
   end
