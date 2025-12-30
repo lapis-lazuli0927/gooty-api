@@ -225,8 +225,8 @@
             schema:
               type: object
               properties:
-                message:
-                  type: string
+                success:
+                  type: boolean
             example:
               success: true
       "404":
