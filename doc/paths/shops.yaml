@@ -228,7 +228,6 @@
                 message:
                   type: string
             example:
-              message: Shop deleted successfully
               success: true
       "400":
         description: リクエストエラー
@@ -237,7 +236,8 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Bad request
+              error: 削除できませんでした
+              success: false
       "404":
         description: ショップが見つからない場合
         content:
@@ -245,7 +245,8 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Shop not found
+              error: ショップが見つかりません
+              success: false
       "500":
         description: サーバーエラー
         content:
@@ -253,4 +254,5 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Internal server error
+              error: サーバーでエラーが発生しました
+              success: false
