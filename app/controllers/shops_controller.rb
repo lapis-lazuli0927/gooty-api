@@ -60,8 +60,6 @@ class ShopsController < ApplicationController
   end
 
   def destroy
-    delete_params = params.permit(:id)
-
     shop = Shop.find_by(id: delete_params[:id])
 
     unless shop
@@ -71,12 +69,7 @@ class ShopsController < ApplicationController
       }, status: :not_found
     end
 
-    unless shop.destroy
-      return render json: {
-        error: "サーバーでエラーが発生しました",
-        success: false
-      }
-    end
+    shop.destroy!
 
     render json: { success: true }, status: :ok
   end
@@ -86,6 +79,10 @@ class ShopsController < ApplicationController
  
   def shop_params
     params.permit(:name, :url, :station_name, :address, :tel, :memo, :review, :is_instagram, :is_ai_generated)
+  end
+
+  def delete_params
+    params.permit(:id)
   end
 
 
