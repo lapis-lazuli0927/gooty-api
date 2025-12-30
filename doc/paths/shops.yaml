@@ -229,14 +229,14 @@
                   type: string
             example:
               success: true
-      "400":
-        description: リクエストエラー
+      "404":
+        description: ショップが見つからない場合
         content:
           application/json:
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: 削除できませんでした
+              error: ショップが見つかりません
               success: false
       "500":
         description: サーバーエラー
