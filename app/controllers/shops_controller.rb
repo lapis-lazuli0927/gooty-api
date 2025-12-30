@@ -60,25 +60,25 @@ class ShopsController < ApplicationController
   end
 
   def destroy
-    shop = Shop.find_by(id: params[:id])
+    delete_params = params.permit(:id)
 
-    if shop
-      if shop.destroy
-        render json: {
-          success: true
-        }, status: :ok
-      else
-        render json: {
-          error: "サーバーでエラーが発生しました",
-          success: false
-        }, status: :internal_server_error
-      end
-    else
-      render json: {
+    shop = Shop.find_by(id: delete_params[:id])
+
+    unless shop
+      return render json: {
         error: "ショップが見つかりません",
         success: false
       }, status: :not_found
     end
+
+    unless shop.destroy
+      return render json: {
+        error: "サーバーでエラーが発生しました",
+        success: false
+      }
+    end
+
+    render json: { success: true }, status: :ok
   end
 
 
