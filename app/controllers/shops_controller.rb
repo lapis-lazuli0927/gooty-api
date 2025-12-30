@@ -59,10 +59,30 @@ class ShopsController < ApplicationController
     end
   end
 
+  def destroy
+    shop = Shop.find_by(id: delete_params[:id])
+
+    unless shop
+      return render json: {
+        error: "ショップが見つかりません",
+        success: false
+      }, status: :not_found
+    end
+
+    shop.destroy!
+
+    render json: { success: true }, status: :ok
+  end
+
+
   private
  
   def shop_params
     params.permit(:name, :url, :station_name, :address, :tel, :memo, :review, :is_instagram, :is_ai_generated)
+  end
+
+  def delete_params
+    params.permit(:id)
   end
 
 

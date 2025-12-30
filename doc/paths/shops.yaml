@@ -201,3 +201,49 @@
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
               error: Internal server error
+
+  delete:
+    summary: ショップの削除
+    description: 指定されたIDのShopを削除します
+    operationId: deleteShop
+    tags:
+      - Shops
+    security: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: deleteShop ID
+        schema:
+          type: integer
+          example: 1
+    responses:
+      "200":
+        description: 削除成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+            example:
+              success: true
+      "404":
+        description: ショップが見つからない場合
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+            example:
+              error: ショップが見つかりません
+              success: false
+      "500":
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+            example:
+              error: サーバーでエラーが発生しました
+              success: false
