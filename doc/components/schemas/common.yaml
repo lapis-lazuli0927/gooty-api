@@ -20,5 +20,8 @@ ValidationErrorResponse:
         type: string
         description: エラーメッセージ
       example:
-        - "Value can't be blank"
-        - "Memo is too long"
+        - "ショップ名は必須です"
+        - "AI生成フラグは必須です"
+        - "Instagramフラグは必須です"
+    success:
+      type: boolean

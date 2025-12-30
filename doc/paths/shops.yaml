@@ -122,9 +122,12 @@
         content:
           application/json:
             schema:
-              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+              $ref: "../components/schemas/common.yaml#/ValidationErrorResponse"
             example:
-              error: "お店の名前は必須項目です。"
+              errors:
+                - "ショップ名は必須です"
+                - "AI生成フラグは必須です"
+                - "Instagramフラグは必須です"
               success: false
 
       "500":
