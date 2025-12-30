@@ -238,15 +238,6 @@
             example:
               error: 削除できませんでした
               success: false
-      "404":
-        description: ショップが見つからない場合
-        content:
-          application/json:
-            schema:
-              $ref: "../components/schemas/common.yaml#/ErrorResponse"
-            example:
-              error: ショップが見つかりません
-              success: false
       "500":
         description: サーバーエラー
         content:
