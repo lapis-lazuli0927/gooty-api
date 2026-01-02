@@ -78,7 +78,7 @@ class ShopsController < ApplicationController
   private
  
   def shop_params
-    params.permit(:name, :url, :station_name, :address, :tel, :memo, :review, :is_instagram, :is_ai_generated)
+    params.permit(:name, :url, :station_name, :address, :tel, :memo, :review, :is_ai_generated)
   end
 
   def delete_params

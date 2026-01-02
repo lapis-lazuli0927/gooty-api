@@ -94,7 +94,6 @@
                 tel: "042-201-1478"
                 memo: "美味しいワインバルです"
                 review: 5
-                is_instagram: true # または false
                 is_ai_generated: false
             autoInputExample:
               summary: 自動入力の例 (Instagramから情報取得)
