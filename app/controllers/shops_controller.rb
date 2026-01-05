@@ -41,22 +41,23 @@ class ShopsController < ApplicationController
   end
 
   def show
-    shop = Shop.find_by(id: params[:id])
+    shop = Shop.find_by(id: show_params[:id])
 
-    if shop
-      render json: {
-        data: shop.as_json(
-          except: [:updated_at, :station_id, :is_ai_generated, :created_at, :url],
-          methods: :station_name
-        ),
-        success: true
-      }
-    else
-      render json: {
-        error: "shop not found",
+    unless shop
+      return render json: {
+        error: "ショップが見つかりません",
         success: false
       }, status: :not_found
     end
+
+    render json: {
+      data: shop.as_json(
+        except: [:updated_at, :station_id, :is_ai_generated, :created_at, :url],
+        methods: :station_name
+      ),
+      success: true
+    }
+    
   end
 
   def destroy
@@ -79,6 +80,10 @@ class ShopsController < ApplicationController
  
   def shop_params
     params.permit(:name, :url, :station_name, :address, :tel, :memo, :review, :is_ai_generated)
+  end
+
+  def show_params
+    params.permit(:id)
   end
 
   def delete_params
