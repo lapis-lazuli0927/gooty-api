@@ -41,11 +41,11 @@ class ShopsController < ApplicationController
   end
 
   def show
-    @shop = Shop.find_by(id: params[:id])
+    shop = Shop.find_by(id: params[:id])
 
-    if @shop
+    if shop
       render json: {
-        data: @shop.as_json(
+        data: shop.as_json(
           except: [:updated_at, :station_id, :is_ai_generated, :created_at, :url],
           methods: :station_name
         ),
