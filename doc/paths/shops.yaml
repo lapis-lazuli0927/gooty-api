@@ -43,7 +43,7 @@
               success:
                 type: boolean
             example:
-              error: "投稿が見つかりませんでした。"
+              error: 投稿が見つかりませんでした
               success: false
       "500":
         description: サーバーエラー
@@ -54,7 +54,7 @@
               success:
                 type: boolean
             example:
-              error: Internal server error
+              error: サーバーでエラーが発生しました
               success: false
 
   post:
@@ -136,7 +136,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Internal server error
+              error: サーバーでエラーが発生しました
               success: false
 
 /shops/{id}:
@@ -176,14 +176,6 @@
                 review: 5
                 is_instagram: true
               success: true
-      "400":
-        description: リクエストエラー
-        content:
-          application/json:
-            schema:
-              $ref: "../components/schemas/common.yaml#/ErrorResponse"
-            example:
-              error: Bad request
       "404":
         description: ショップが見つからない場合
         content:
@@ -191,7 +183,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: shop not found
+              error: ショップが見つかりません
       "500":
         description: サーバーエラー
         content:
@@ -199,7 +191,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Internal server error
+              error: サーバーでエラーが発生しました
 
   delete:
     summary: ショップの削除
