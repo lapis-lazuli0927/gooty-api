@@ -238,3 +238,71 @@
             example:
               error: サーバーでエラーが発生しました
               success: false
+
+  patch:
+    summary: ショップの更新
+    description: 指定されたIDのShopを更新します
+    operationId: updateShop
+    tags:
+      - Shops
+    security: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: updateShop ID
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/create.yaml#/ManualCreate"
+    responses:
+      "200":
+        description: 更新成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "../components/schemas/shops.yaml#/Shops"
+                success:
+                  type: boolean
+            example:
+              data:
+                - id: 1
+                  name: "Switch"
+                  station_name: "武蔵小金井駅"
+                  address: "東京都小金井市本町5-18-15"
+                  tel: "042-201-1478"
+                  memo: "美味しいワインバルです"
+                  review: 5
+                  is_instagram: true
+                  is_ai_generated: true
+                  updated_at: "2024-01-15T10:00:00Z"
+              success: true
+      "400":
+        description: リクエストデータのバリデーションエラーが発生した場合
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/common.yaml#/ValidationErrorResponse"
+            example:
+              errors:
+                - "ショップ名は必須です"
+                - "AI生成フラグは必須です"
+                - "Instagramフラグは必須です"
+              success: false
+      "500":
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+            example:
+              error: サーバーでエラーが発生しました
+              success: false
