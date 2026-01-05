@@ -283,6 +283,7 @@
             example:
               errors:
                 - "ショップ名は必須です"
+                - "AI生成フラグは必須です"
               success: false
       "500":
         description: サーバーエラー
