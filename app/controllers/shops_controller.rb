@@ -75,6 +75,29 @@ class ShopsController < ApplicationController
     render json: { success: true }, status: :ok
   end
 
+  def update
+    shop = Shop.find_by(id: update_params[:id])
+
+    station_name_from_input = update_params[:station_name]
+    update_attributes = update_params.to_h.except(:station_name)
+
+    unless station_name_from_input.blank?
+      station = Station.find_or_create_by(name: station_name_from_input)
+      update_attributes = update_attributes.merge(station_id: station.id)
+    end
+
+    unless shop.update(update_attributes)
+      return render json: {
+        success: false,
+        errors: shop.errors.full_messages
+      }, status: :bad_request
+    end
+
+    render json: {
+      data: shop.as_json(except: [:station_id], methods: :station_name),
+      success: true
+    }, status: :ok
+  end
 
   private
  
@@ -88,6 +111,10 @@ class ShopsController < ApplicationController
 
   def delete_params
     params.permit(:id)
+  end
+
+  def update_params
+    params.permit(:id, :name, :url, :station_name, :address, :tel, :memo, :review, :is_instagram)
   end
 
 
