@@ -52,7 +52,7 @@ class ShopsController < ApplicationController
 
     render json: {
       data: shop.as_json(
-        except: [:updated_at, :station_id, :is_ai_generated, :created_at, :url],
+        except: [:updated_at, :station_id, :is_ai_generated, :created_at],
         methods: :station_name
       ),
       success: true
