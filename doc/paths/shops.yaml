@@ -268,8 +268,6 @@
             schema:
               type: object
               properties:
-                data:
-                  $ref: "../components/schemas/shops.yaml#/Shops"
                 success:
                   type: boolean
             example:
