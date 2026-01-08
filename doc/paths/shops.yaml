@@ -17,7 +17,7 @@
                 data:
                   type: array
                   items:
-                    $ref: "../components/schemas/shops.yaml#/Shops"
+                    $ref: "../components/schemas/shops/resource.yaml#/Shop"
                 success:
                   type: boolean
             example:
@@ -40,8 +40,6 @@
           application/json:
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
-              success:
-                type: boolean
             example:
               error: 投稿が見つかりませんでした
               success: false
@@ -51,8 +49,6 @@
           application/json:
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
-              success:
-                type: boolean
             example:
               error: サーバーでエラーが発生しました
               success: false
@@ -73,17 +69,10 @@
       content:
         application/json:
           schema:
-            # oneOf を使用して、リクエストボディが複数のスキーマ定義のうちのいずれかに適合することを指定
             oneOf:
-              - $ref: "../components/schemas/create.yaml#/ManualCreate" # 既存の手動入力スキーマ (仮にManualCreateとします)
-              - $ref: "../components/schemas/create.yaml#/AutoCreate" # 新たに定義する自動入力スキーマ
-            discriminator:
-              propertyName:
-                is_instagram # 識別子としてis_instagramを使用することが考えられますが、
-                # 今回のように必須プロパティの有無で判断できる場合は省略しても動作します。
-                # is_instagramは両方のパターンにあるため、より明確な識別子（例: mode: "manual" or "auto"）を
-                # 追加できれば理想的ですが、既存JSONを変更したくない場合はこのままoneOfで表現します。
-          examples: # 複数のパターンを明示するため、examplesを複数定義します
+              - $ref: "../components/schemas/shops/create.yaml#/ManualCreate"
+              - $ref: "../components/schemas/shops/create.yaml#/AutoCreate"
+          examples:
             manualInputExample:
               summary: 手動入力の例
               value:
@@ -100,7 +89,6 @@
               value:
                 is_instagram: true
                 is_ai_generated: true
-                # その他の情報は空、またはサーバー側で外部サービスから取得
     responses:
       "201":
         description: 新規ショップの作成に成功した場合
@@ -109,8 +97,6 @@
             schema:
               type: object
               properties:
-                data:
-                  $ref: "../components/schemas/shops.yaml#/Shops"
                 success:
                   type: boolean
             example:
@@ -164,7 +150,7 @@
               type: object
               properties:
                 data:
-                  $ref: "../components/schemas/shops.yaml#/Shops"
+                  $ref: "../components/schemas/shops/resource.yaml#/Shop"
             example:
               data:
                 id: 1
@@ -259,7 +245,7 @@
       content:
         application/json:
           schema:
-            $ref: "../components/schemas/create.yaml#/ManualCreate"
+            $ref: "../components/schemas/shops/update.yaml#/Update"
     responses:
       "200":
         description: 更新成功

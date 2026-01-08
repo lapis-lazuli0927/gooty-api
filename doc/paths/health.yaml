@@ -12,7 +12,7 @@
         content:
           application/json:
             schema:
-              $ref: '../components/schemas/health.yaml#/HealthResponse'
+              $ref: '../components/schemas/health/resource.yaml#/HealthResponse'
             example:
               status: ok
               timestamp: '2024-11-20T10:00:00.000Z'
