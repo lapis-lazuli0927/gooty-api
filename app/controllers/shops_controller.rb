@@ -94,7 +94,6 @@ class ShopsController < ApplicationController
     end
 
     render json: {
-      data: shop.as_json(except: [:station_id], methods: :station_name),
       success: true
     }, status: :ok
   end
