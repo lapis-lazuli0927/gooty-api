@@ -33,7 +33,6 @@
                   is_ai_generated: true
                   created_at: "2024-01-15T10:00:00Z"
               success: true
-
       "400":
         description: リクエストエラー
         content:
@@ -200,10 +199,7 @@
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                success:
-                  type: boolean
+              $ref: "../components/schemas/responses.yaml#/DeleteSuccessResponse"
             example:
               success: true
       "404":

@@ -1,0 +1,47 @@
+# 共通レスポンススキーマ
+
+# 成功レスポンス（単一リソース）
+SuccessResponse:
+  type: object
+  properties:
+    success:
+      type: boolean
+      example: true
+
+# 単一リソースレスポンス - Shops
+ShopResponse:
+  type: object
+  properties:
+    data:
+      $ref: './shops.yaml#/Shops'
+    success:
+      type: boolean
+      example: true
+
+# 一覧レスポンス - Shops
+ShopListResponse:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        $ref: './shops.yaml#/Shops'
+    success:
+      type: boolean
+      example: true
+
+# 削除成功レスポンス
+DeleteSuccessResponse:
+  type: object
+  properties:
+    success:
+      type: boolean
+      example: true
+
+# Railsヘルスチェックレスポンス
+UpResponse:
+  type: object
+  properties:
+    status:
+      type: string
+      example: ok

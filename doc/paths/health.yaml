@@ -48,10 +48,7 @@
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                status:
-                  type: string
+              $ref: '../components/schemas/responses.yaml#/UpResponse'
             example:
               status: ok
       '400':
