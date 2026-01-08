@@ -1,4 +1,4 @@
-Shops:
+Shop:
   type: object
   description: ショップのデータ
   properties:
@@ -8,31 +8,41 @@ Shops:
       example: 1
     name:
       type: string
+      description: ショップ名
       example: "Switch"
     url:
       type: string
+      description: ショップURL
       example: "https://www.instagram.com/"
     station_name:
       type: string
+      description: 駅名
       example: "武蔵小金井駅"
     address:
       type: string
+      description: 住所
       example: "東京都小金井市本町5-18-15"
     tel:
       type: string
+      description: 電話番号
       example: "042-201-1478"
     memo:
       type: string
+      description: メモ
       example: "美味しいワインバルです"
     review:
       type: integer
+      description: 評価
       example: 5
     is_instagram:
       type: boolean
+      description: Instagramフラグ
     is_ai_generated:
       type: boolean
+      description: AI生成フラグ
     created_at:
       type: string
       format: date-time
       description: 作成日時
       example: "2024-01-15T10:00:00Z"
+

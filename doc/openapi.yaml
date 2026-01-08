@@ -30,38 +30,6 @@ paths:
   /shops/{id}:
     $ref: "./paths/shops.yaml#/~1shops~1{id}"
 
-components:
-  schemas:
-    # リソーススキーマ
-    HealthResponse:
-      $ref: "./components/schemas/health.yaml#/HealthResponse"
-    Shops:
-      $ref: "./components/schemas/shops.yaml#/Shops"
-    ManualCreate:
-      $ref: "./components/schemas/create.yaml#/ManualCreate"
-    AutoCreate:
-      $ref: "./components/schemas/create.yaml#/AutoCreate"
-
-    # エラーレスポンス
-    ErrorResponse:
-      $ref: "./components/schemas/common.yaml#/ErrorResponse"
-    ValidationErrorResponse:
-      $ref: "./components/schemas/common.yaml#/ValidationErrorResponse"
-
-    # 共通レスポンス
-    SuccessResponse:
-      $ref: "./components/schemas/responses.yaml#/SuccessResponse"
-    DeleteSuccessResponse:
-      $ref: "./components/schemas/responses.yaml#/DeleteSuccessResponse"
-    UpResponse:
-      $ref: "./components/schemas/responses.yaml#/UpResponse"
-
-    # リソース別レスポンス
-    ShopResponse:
-      $ref: "./components/schemas/responses.yaml#/ShopResponse"
-    ShopListResponse:
-      $ref: "./components/schemas/responses.yaml#/ShopListResponse"
-
 tags:
   - name: Health
     description: ヘルスチェック関連のエンドポイント

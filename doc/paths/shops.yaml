@@ -12,7 +12,14 @@
         content:
           application/json:
             schema:
-              $ref: "../components/schemas/responses.yaml#/ShopListResponse"
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "../components/schemas/shops/resource.yaml#/Shop"
+                success:
+                  type: boolean
             example:
               data:
                 - id: 1
@@ -62,10 +69,8 @@
         application/json:
           schema:
             oneOf:
-              - $ref: "../components/schemas/create.yaml#/ManualCreate"
-              - $ref: "../components/schemas/create.yaml#/AutoCreate"
-            discriminator:
-              propertyName: is_instagram
+              - $ref: "../components/schemas/shops/create.yaml#/ManualCreate"
+              - $ref: "../components/schemas/shops/create.yaml#/AutoCreate"
           examples:
             manualInputExample:
               summary: 手動入力の例
@@ -89,7 +94,10 @@
         content:
           application/json:
             schema:
-              $ref: "../components/schemas/responses.yaml#/ShopResponse"
+              type: object
+              properties:
+                success:
+                  type: boolean
             example:
               success: true
 
@@ -138,7 +146,10 @@
         content:
           application/json:
             schema:
-              $ref: "../components/schemas/responses.yaml#/ShopResponse"
+              type: object
+              properties:
+                data:
+                  $ref: "../components/schemas/shops/resource.yaml#/Shop"
             example:
               data:
                 id: 1
@@ -230,7 +241,7 @@
       content:
         application/json:
           schema:
-            $ref: "../components/schemas/create.yaml#/ManualCreate"
+            $ref: "../components/schemas/shops/update.yaml#/Update"
     responses:
       "200":
         description: 更新成功
@@ -239,8 +250,6 @@
             schema:
               type: object
               properties:
-                data:
-                  $ref: "../components/schemas/shops.yaml#/Shops"
                 success:
                   type: boolean
             example:
