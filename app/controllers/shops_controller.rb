@@ -81,9 +81,12 @@ class ShopsController < ApplicationController
     station_name_from_input = update_params[:station_name]
     update_attributes = update_params.to_h.except(:station_name)
 
-    unless station_name_from_input.blank?
-      station = Station.find_or_create_by(name: station_name_from_input)
-      update_attributes = update_attributes.merge(station_id: station.id)
+    if station_name_from_input.blank?
+    update_attributes = update_attributes.merge(station_id: nil)
+  else
+    station = Station.find_or_create_by(name: station_name_from_input)
+    update_attributes = update_attributes.merge(station_id: station.id)
+  endate_attributes = update_attributes.merge(station_id: station.id)
     end
 
     unless shop.update(update_attributes)
