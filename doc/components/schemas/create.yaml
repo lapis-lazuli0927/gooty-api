@@ -37,8 +37,6 @@ ManualCreate:
     review:
       type: integer
       example: 5
-    is_instagram:
-      type: boolean
     is_ai_generated:
       type: boolean
       description: ai入力かどうか

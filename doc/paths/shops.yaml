@@ -33,7 +33,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: "投稿が見つかりませんでした。"
+              error: 投稿が見つかりませんでした
               success: false
       "500":
         description: サーバーエラー
@@ -42,7 +42,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Internal server error
+              error: サーバーでエラーが発生しました
               success: false
 
   post:
@@ -77,7 +77,6 @@
                 tel: "042-201-1478"
                 memo: "美味しいワインバルです"
                 review: 5
-                is_instagram: true
                 is_ai_generated: false
             autoInputExample:
               summary: 自動入力の例 (Instagramから情報取得)
@@ -114,7 +113,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Internal server error
+              error: サーバーでエラーが発生しました
               success: false
 
 /shops/{id}:
@@ -151,14 +150,6 @@
                 review: 5
                 is_instagram: true
               success: true
-      "400":
-        description: リクエストエラー
-        content:
-          application/json:
-            schema:
-              $ref: "../components/schemas/common.yaml#/ErrorResponse"
-            example:
-              error: Bad request
       "404":
         description: ショップが見つからない場合
         content:
@@ -166,7 +157,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: shop not found
+              error: ショップが見つかりません
       "500":
         description: サーバーエラー
         content:
@@ -174,7 +165,7 @@
             schema:
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
-              error: Internal server error
+              error: サーバーでエラーが発生しました
 
   delete:
     summary: ショップの削除
@@ -208,6 +199,62 @@
               $ref: "../components/schemas/common.yaml#/ErrorResponse"
             example:
               error: ショップが見つかりません
+              success: false
+      "500":
+        description: サーバーエラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/common.yaml#/ErrorResponse"
+            example:
+              error: サーバーでエラーが発生しました
+              success: false
+
+  put:
+    summary: ショップの更新
+    description: 指定されたIDのShopを更新します
+    operationId: updateShop
+    tags:
+      - Shops
+    security: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: updateShop ID
+        schema:
+          type: integer
+          example: 1
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/create.yaml#/ManualCreate"
+    responses:
+      "200":
+        description: 更新成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "../components/schemas/shops.yaml#/Shops"
+                success:
+                  type: boolean
+            example:
+              success: true
+      "400":
+        description: リクエストデータのバリデーションエラーが発生した場合
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/common.yaml#/ValidationErrorResponse"
+            example:
+              errors:
+                - "ショップ名は必須です"
+                - "AI生成フラグは必須です"
               success: false
       "500":
         description: サーバーエラー
