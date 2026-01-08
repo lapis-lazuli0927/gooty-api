@@ -86,8 +86,7 @@ class ShopsController < ApplicationController
   else
     station = Station.find_or_create_by(name: station_name_from_input)
     update_attributes = update_attributes.merge(station_id: station.id)
-  endate_attributes = update_attributes.merge(station_id: station.id)
-    end
+  end
 
     unless shop.update(update_attributes)
       return render json: {
