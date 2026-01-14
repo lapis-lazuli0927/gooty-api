@@ -1,8 +1,17 @@
 class ShopsController < ApplicationController
   def index
-    shop = Shop.all
+    sort_column = params[:sort] || "created_at"
+    sort_order = params[:order] || "desc"
+
+    allowed_columns = ["created_at", "review"]
+    sort_column = "created_at" unless allowed_columns.include?(sort_column)
+    
+    allowed_orders = ["asc", "desc"]
+    sort_order = "desc" unless allowed_orders.include?(sort_order)
+
+    shops = Shop.order("#{sort_column} #{sort_order}")
     render json: {
-      data: shop.as_json(
+      data: shops.as_json(
         except: [:updated_at, :station_id],
         methods: :station_name
         ),
