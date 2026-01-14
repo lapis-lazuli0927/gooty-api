@@ -5,6 +5,23 @@
     operationId: getShopsList
     tags:
       - Shops
+    parameters:
+      - name: sort
+        in: query
+        description: ソート対象の項目（登録日か評価順）
+        required: false
+        schema:
+          type: string
+          enum: [created_at, review]
+          default: created_at
+      - name: order
+        in: query
+        description: 並び順（昇順か降順）
+        required: false
+        schema:
+          type: string
+          enum: [asc, desc]
+          default: desc
     security: []
     responses:
       "200":
