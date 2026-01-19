@@ -2,6 +2,7 @@ require 'net/http'
 require 'json'
 
 class ShopsController < ApplicationController
+
   def index
     shop = Shop.all
     render json: {
@@ -94,7 +95,7 @@ class ShopsController < ApplicationController
     end
 
     # ログインユーザーを紐付け
-    shops_attributes = shops_attributes.merge(user_id: current_user.id)
+    # shops_attributes = shops_attributes.merge(user_id: current_user.id)
     
     shop = Shop.new(shops_attributes)
     if shop.save
@@ -126,17 +127,16 @@ class ShopsController < ApplicationController
       # Gemini APIリクエスト
       contents = [
         {
-          role: 'user',
           parts: [{ text: prompt }]
         }
       ]
 
-      uri = URI('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent')
+      uri = URI('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent')
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
       request = Net::HTTP::Post.new(uri)
-      request['x-goog-api-key'] = api_key
+      request['X-goog-api-key'] = api_key
       request['Content-Type'] = 'application/json'
       request.body = { contents: contents }.to_json
 
@@ -247,7 +247,7 @@ class ShopsController < ApplicationController
       tel: shop_data['tel'],
       memo: shop_data['memo'],
       is_ai_generated: true,
-      user_id: current_user.id
+      # user_id: current_user.id
     }
 
     # station_nameがある場合はstationを作成/取得
