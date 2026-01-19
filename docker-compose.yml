@@ -25,6 +25,7 @@ services:
       - RAILS_ENV=development
       - DATABASE_URL=mysql2://gooty:password@db:3306/gooty_development
       - BUNDLE_WITHOUT=production
+      - GEMINI_API_KEY=AIzaSyBJJ-5oWWkh6F-DwN6RauqSZ3AWTFE7MH0
 
 volumes:
   mysql_data:
