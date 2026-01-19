@@ -8,6 +8,14 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # 認証系エンドポイント
+  post "signup" => "auth#signup"
+  post "login" => "auth#login"
+  delete "logout" => "auth#logout"
+
+  # ユーザー管理エンドポイント
+  resources :users, only: [:index, :show, :update, :destroy]
+
   # API routes
   resources :demo_shops, only: [:index, :show]
   resources :stardusts, only: [:index, :create, :show, :update, :destroy]

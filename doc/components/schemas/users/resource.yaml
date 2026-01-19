@@ -1,0 +1,21 @@
+type: object
+properties:
+  id:
+    type: integer
+    description: ユーザーID
+    example: 1
+  email:
+    type: string
+    format: email
+    description: メールアドレス
+    example: user@example.com
+  name:
+    type: string
+    description: ユーザー名
+    example: 山田太郎
+  created_at:
+    type: string
+    format: date-time
+    description: 作成日時
+    example: "2026-01-16T10:00:00.000Z"
+

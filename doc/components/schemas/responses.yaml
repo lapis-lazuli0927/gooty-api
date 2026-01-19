@@ -45,3 +45,40 @@ UpResponse:
     status:
       type: string
       example: ok
+
+# 認証エラーレスポンス
+UnauthorizedError:
+  type: object
+  properties:
+    error:
+      type: string
+      example: 認証が必要です
+    success:
+      type: boolean
+      example: false
+
+# バリデーションエラーレスポンス
+ValidationError:
+  type: object
+  properties:
+    errors:
+      type: array
+      items:
+        type: string
+      example:
+        - メールアドレスは必須です
+        - パスワードは6文字以上で入力してください
+    success:
+      type: boolean
+      example: false
+
+# リソースが見つからないエラーレスポンス
+NotFoundError:
+  type: object
+  properties:
+    error:
+      type: string
+      example: ユーザーが見つかりません
+    success:
+      type: boolean
+      example: false

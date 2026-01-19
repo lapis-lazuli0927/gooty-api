@@ -1,4 +1,6 @@
 class ShopsController < ApplicationController
+  include Authenticatable
+
   def index
     shop = Shop.all
     render json: {
@@ -26,6 +28,9 @@ class ShopsController < ApplicationController
       station = Station.find_or_create_by(name: station_name_from_input)
       shops_attributes = shops_attributes.merge(station_id: station.id)
     end
+
+    # ログインユーザーを紐付け
+    shops_attributes = shops_attributes.merge(user_id: current_user.id)
     
     shop = Shop.new(shops_attributes)
     if shop.save

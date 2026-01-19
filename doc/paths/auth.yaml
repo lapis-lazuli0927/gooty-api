@@ -1,0 +1,81 @@
+/signup:
+  post:
+    summary: ユーザー登録
+    description: 新規ユーザーを登録し、アクセストークンを発行します
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/auth/signup_request.yaml"
+    responses:
+      "201":
+        description: 登録成功
+        headers:
+          Set-Cookie:
+            description: アクセストークンを含むCookie
+            schema:
+              type: string
+              example: access_token=abc123; Path=/; HttpOnly; SameSite=Lax
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/auth/auth_response.yaml"
+      "400":
+        description: バリデーションエラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/ValidationError"
+
+/login:
+  post:
+    summary: ログイン
+    description: メールアドレスとパスワードで認証し、アクセストークンを発行します
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/auth/login_request.yaml"
+    responses:
+      "200":
+        description: ログイン成功
+        headers:
+          Set-Cookie:
+            description: アクセストークンを含むCookie
+            schema:
+              type: string
+              example: access_token=abc123; Path=/; HttpOnly; SameSite=Lax
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/auth/auth_response.yaml"
+      "401":
+        description: 認証失敗
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/UnauthorizedError"
+
+/logout:
+  delete:
+    summary: ログアウト
+    description: アクセストークンを無効化し、Cookieを削除します
+    tags:
+      - Auth
+    security:
+      - BearerAuth: []
+      - CookieAuth: []
+    responses:
+      "200":
+        description: ログアウト成功
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/SuccessResponse"
+

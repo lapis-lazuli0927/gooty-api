@@ -1,0 +1,161 @@
+/users:
+  get:
+    summary: ユーザー一覧取得
+    description: 全ユーザーの一覧を取得します
+    tags:
+      - Users
+    security:
+      - BearerAuth: []
+      - CookieAuth: []
+    responses:
+      "200":
+        description: 成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "../components/schemas/users/resource.yaml"
+                success:
+                  type: boolean
+                  example: true
+      "401":
+        description: 認証エラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/UnauthorizedError"
+
+/users/{id}:
+  get:
+    summary: ユーザー詳細取得
+    description: 指定されたIDのユーザー情報を取得します
+    tags:
+      - Users
+    security:
+      - BearerAuth: []
+      - CookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ユーザーID
+        schema:
+          type: integer
+    responses:
+      "200":
+        description: 成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "../components/schemas/users/resource.yaml"
+                success:
+                  type: boolean
+                  example: true
+      "401":
+        description: 認証エラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/UnauthorizedError"
+      "404":
+        description: ユーザーが見つからない
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/NotFoundError"
+
+  put:
+    summary: ユーザー更新
+    description: 指定されたIDのユーザー情報を更新します
+    tags:
+      - Users
+    security:
+      - BearerAuth: []
+      - CookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ユーザーID
+        schema:
+          type: integer
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/users/update.yaml"
+    responses:
+      "200":
+        description: 更新成功
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "../components/schemas/users/resource.yaml"
+                success:
+                  type: boolean
+                  example: true
+      "400":
+        description: バリデーションエラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/ValidationError"
+      "401":
+        description: 認証エラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/UnauthorizedError"
+      "404":
+        description: ユーザーが見つからない
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/NotFoundError"
+
+  delete:
+    summary: ユーザー削除
+    description: 指定されたIDのユーザーを削除します
+    tags:
+      - Users
+    security:
+      - BearerAuth: []
+      - CookieAuth: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ユーザーID
+        schema:
+          type: integer
+    responses:
+      "200":
+        description: 削除成功
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/SuccessResponse"
+      "401":
+        description: 認証エラー
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/UnauthorizedError"
+      "404":
+        description: ユーザーが見つからない
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/responses.yaml#/NotFoundError"
+

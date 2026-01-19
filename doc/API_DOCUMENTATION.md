@@ -6,6 +6,32 @@
 http://localhost:3002
 ```
 
+## 認証
+
+このAPIはBearer認証とCookie認証の両方をサポートしています。
+
+### Bearer認証
+
+リクエストヘッダーにアクセストークンを設定します。
+
+```bash
+curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:3002/users
+```
+
+### Cookie認証
+
+ログイン時に自動的に`access_token`Cookieが設定されます。以降のリクエストでは自動的に認証されます。
+
+```bash
+curl -c cookies.txt -b cookies.txt http://localhost:3002/users
+```
+
+### トークンの有効期限
+
+アクセストークンは発行から30日間有効です。
+
+---
+
 ## エンドポイント一覧
 
 ### 1. Health Check
@@ -48,7 +74,268 @@ curl http://localhost:3002/up
 
 ---
 
-### 2. Demo Shops
+### 2. Auth（認証）
+
+#### POST /signup
+
+新規ユーザーを登録します。
+
+**リクエスト例:**
+```bash
+curl -X POST http://localhost:3002/signup \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "password123",
+    "name": "山田太郎"
+  }'
+```
+
+**リクエストボディ:**
+| パラメータ | 型 | 必須 | 説明 |
+|-----------|-----|------|------|
+| email | string | ○ | メールアドレス |
+| password | string | ○ | パスワード（6文字以上） |
+| name | string | ○ | ユーザー名 |
+
+**レスポンス例:**
+```json
+{
+  "data": {
+    "id": 1,
+    "email": "user@example.com",
+    "name": "山田太郎"
+  },
+  "token": "abc123xyz789...",
+  "success": true
+}
+```
+
+**ステータスコード:**
+- `201 Created`: 登録成功
+- `400 Bad Request`: バリデーションエラー
+
+---
+
+#### POST /login
+
+ログインしてアクセストークンを取得します。
+
+**リクエスト例:**
+```bash
+curl -X POST http://localhost:3002/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "password123"
+  }'
+```
+
+**リクエストボディ:**
+| パラメータ | 型 | 必須 | 説明 |
+|-----------|-----|------|------|
+| email | string | ○ | メールアドレス |
+| password | string | ○ | パスワード |
+
+**レスポンス例:**
+```json
+{
+  "data": {
+    "id": 1,
+    "email": "user@example.com",
+    "name": "山田太郎"
+  },
+  "token": "abc123xyz789...",
+  "success": true
+}
+```
+
+**エラーレスポンス例:**
+```json
+{
+  "error": "メールアドレスまたはパスワードが正しくありません",
+  "success": false
+}
+```
+
+**ステータスコード:**
+- `200 OK`: ログイン成功
+- `401 Unauthorized`: 認証失敗
+
+---
+
+#### DELETE /logout
+
+ログアウトしてアクセストークンを無効化します。
+
+**リクエスト例:**
+```bash
+curl -X DELETE http://localhost:3002/logout \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+**レスポンス例:**
+```json
+{
+  "success": true
+}
+```
+
+**ステータスコード:**
+- `200 OK`: ログアウト成功
+
+---
+
+### 3. Users（ユーザー管理）
+
+> ⚠️ 以下のエンドポイントは認証が必要です
+
+#### GET /users
+
+ユーザー一覧を取得します。
+
+**リクエスト例:**
+```bash
+curl http://localhost:3002/users \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+**レスポンス例:**
+```json
+{
+  "data": [
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "name": "山田太郎",
+      "created_at": "2026-01-16T10:00:00.000Z"
+    }
+  ],
+  "success": true
+}
+```
+
+**ステータスコード:**
+- `200 OK`: 正常
+- `401 Unauthorized`: 認証エラー
+
+---
+
+#### GET /users/:id
+
+指定されたIDのユーザー情報を取得します。
+
+**パラメータ:**
+- `id` (integer, required): ユーザーID
+
+**リクエスト例:**
+```bash
+curl http://localhost:3002/users/1 \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+**レスポンス例:**
+```json
+{
+  "data": {
+    "id": 1,
+    "email": "user@example.com",
+    "name": "山田太郎",
+    "created_at": "2026-01-16T10:00:00.000Z"
+  },
+  "success": true
+}
+```
+
+**エラーレスポンス例:**
+```json
+{
+  "error": "ユーザーが見つかりません",
+  "success": false
+}
+```
+
+**ステータスコード:**
+- `200 OK`: 正常
+- `401 Unauthorized`: 認証エラー
+- `404 Not Found`: ユーザーが見つからない
+
+---
+
+#### PUT /users/:id
+
+指定されたIDのユーザー情報を更新します。
+
+**パラメータ:**
+- `id` (integer, required): ユーザーID
+
+**リクエスト例:**
+```bash
+curl -X PUT http://localhost:3002/users/1 \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "山田花子",
+    "email": "hanako@example.com"
+  }'
+```
+
+**リクエストボディ:**
+| パラメータ | 型 | 必須 | 説明 |
+|-----------|-----|------|------|
+| email | string | - | メールアドレス |
+| name | string | - | ユーザー名 |
+| password | string | - | パスワード（6文字以上） |
+
+**レスポンス例:**
+```json
+{
+  "data": {
+    "id": 1,
+    "email": "hanako@example.com",
+    "name": "山田花子",
+    "created_at": "2026-01-16T10:00:00.000Z"
+  },
+  "success": true
+}
+```
+
+**ステータスコード:**
+- `200 OK`: 更新成功
+- `400 Bad Request`: バリデーションエラー
+- `401 Unauthorized`: 認証エラー
+- `404 Not Found`: ユーザーが見つからない
+
+---
+
+#### DELETE /users/:id
+
+指定されたIDのユーザーを削除します。
+
+**パラメータ:**
+- `id` (integer, required): ユーザーID
+
+**リクエスト例:**
+```bash
+curl -X DELETE http://localhost:3002/users/1 \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+**レスポンス例:**
+```json
+{
+  "success": true
+}
+```
+
+**ステータスコード:**
+- `200 OK`: 削除成功
+- `401 Unauthorized`: 認証エラー
+- `404 Not Found`: ユーザーが見つからない
+
+---
+
+### 5. Demo Shops
 
 #### GET /demo_shops
 
@@ -130,7 +417,7 @@ curl http://localhost:3002/demo_shops/1
 
 ---
 
-### 3. Stardusts
+### 6. Stardusts
 
 #### GET /stardusts
 
@@ -351,6 +638,28 @@ curl -X DELETE http://localhost:3002/stardusts/1
 
 ## データモデル
 
+### User
+
+| フィールド | 型 | 説明 |
+|----------|-----|------|
+| id | integer | 主キー（自動生成） |
+| email | string | メールアドレス（ユニーク） |
+| password_digest | string | パスワードハッシュ |
+| name | string | ユーザー名 |
+| created_at | datetime | 作成日時（自動生成） |
+| updated_at | datetime | 更新日時（自動生成） |
+
+### AccessToken
+
+| フィールド | 型 | 説明 |
+|----------|-----|------|
+| id | integer | 主キー（自動生成） |
+| user_id | integer | ユーザーID（外部キー） |
+| token | string | アクセストークン（ユニーク） |
+| expires_at | datetime | 有効期限（発行から30日） |
+| created_at | datetime | 作成日時（自動生成） |
+| updated_at | datetime | 更新日時（自動生成） |
+
 ### Stardust
 
 | フィールド | 型 | 説明 |
@@ -372,6 +681,24 @@ curl -X DELETE http://localhost:3002/stardusts/1
 | review_level | float | レビューレベル |
 | created_at | datetime | 作成日時 |
 | updated_at | datetime | 更新日時 |
+
+### Shop
+
+| フィールド | 型 | 説明 |
+|----------|-----|------|
+| id | integer | 主キー（自動生成） |
+| name | string | ショップ名（必須、最大30文字） |
+| url | text | URL |
+| station_id | integer | 駅ID（外部キー） |
+| user_id | integer | ユーザーID（外部キー、必須） |
+| address | string | 住所（最大30文字） |
+| tel | string | 電話番号 |
+| memo | text | メモ |
+| review | integer | レビュー |
+| is_ai_generated | boolean | AI生成フラグ（必須） |
+| is_instagram | boolean | Instagramフラグ（自動設定） |
+| created_at | datetime | 作成日時（自動生成） |
+| updated_at | datetime | 更新日時（自動生成） |
 
 ---
 
@@ -404,5 +731,25 @@ APIはエラー発生時に以下の形式でレスポンスを返します。
 
 - すべてのリクエストはJSON形式で送信してください
 - Content-Typeヘッダーに`application/json`を指定してください
-- 現在、認証機能は実装されていません
+- 認証が必要なエンドポイントには、Bearer認証またはCookie認証が必要です
+- アクセストークンの有効期限は30日間です
+
+---
+
+## Rakeタスク
+
+### 既存Shopデータへのユーザー紐付け
+
+既存のShopデータにデフォルトユーザーを紐付けるタスクです。
+
+```bash
+# デフォルト設定で実行（admin@example.com）
+docker compose exec api rails shops:assign_default_user
+
+# カスタム設定で実行
+docker compose exec api rails shops:assign_default_user \
+  DEFAULT_USER_EMAIL=custom@example.com \
+  DEFAULT_USER_PASSWORD=custompassword \
+  DEFAULT_USER_NAME="カスタムユーザー"
+```
 

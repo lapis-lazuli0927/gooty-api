@@ -25,6 +25,16 @@ paths:
     $ref: "./paths/health.yaml#/~1health"
   /up:
     $ref: "./paths/health.yaml#/~1up"
+  /signup:
+    $ref: "./paths/auth.yaml#/~1signup"
+  /login:
+    $ref: "./paths/auth.yaml#/~1login"
+  /logout:
+    $ref: "./paths/auth.yaml#/~1logout"
+  /users:
+    $ref: "./paths/users.yaml#/~1users"
+  /users/{id}:
+    $ref: "./paths/users.yaml#/~1users~1{id}"
   /shops:
     $ref: "./paths/shops.yaml#/~1shops"
   /shops/{id}:
@@ -33,5 +43,21 @@ paths:
 tags:
   - name: Health
     description: ヘルスチェック関連のエンドポイント
+  - name: Auth
+    description: 認証関連のエンドポイント
+  - name: Users
+    description: ユーザー管理のエンドポイント
   - name: Shops
     description: ショップの一覧を返すエンドポイント
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer認証（Authorizationヘッダーにトークンを設定）
+    CookieAuth:
+      type: apiKey
+      in: cookie
+      name: access_token
+      description: Cookie認証（ログイン時に自動設定）

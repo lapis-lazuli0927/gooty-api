@@ -1,5 +1,6 @@
 class Shop < ApplicationRecord
     belongs_to :station, optional: true
+    belongs_to :user
 
     before_validation :set_instagram_flag
 

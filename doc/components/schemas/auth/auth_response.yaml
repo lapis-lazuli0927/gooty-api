@@ -1,0 +1,26 @@
+type: object
+properties:
+  data:
+    type: object
+    properties:
+      id:
+        type: integer
+        description: ユーザーID
+        example: 1
+      email:
+        type: string
+        format: email
+        description: メールアドレス
+        example: user@example.com
+      name:
+        type: string
+        description: ユーザー名
+        example: 山田太郎
+  token:
+    type: string
+    description: アクセストークン
+    example: "abc123xyz789..."
+  success:
+    type: boolean
+    example: true
+
