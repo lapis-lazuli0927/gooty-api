@@ -192,6 +192,7 @@ class ShopsController < ApplicationController
           }, status: :bad_request
         end
       else
+        Rails.logger.error "Gemini API Error Response: #{response.code} - #{response.body}"
         render json: {
           success: false,
           message: 'Gemini API request failed',

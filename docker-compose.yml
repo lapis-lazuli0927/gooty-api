@@ -21,10 +21,13 @@ services:
       - "3002:3000"
     depends_on:
       - db
+    env_file:
+      - .env
     environment:
       - RAILS_ENV=development
       - DATABASE_URL=mysql2://gooty:password@db:3306/gooty_development
       - BUNDLE_WITHOUT=production
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
 
 volumes:
   mysql_data:
