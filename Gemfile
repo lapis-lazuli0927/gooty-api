@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.3"
+gem "rails", "~> 8.1.2"
 # Use mysql as the database for Active Record (development/test)
 gem "mysql2", "~> 0.5"
 # Use postgresql as the database for Active Record (production)
