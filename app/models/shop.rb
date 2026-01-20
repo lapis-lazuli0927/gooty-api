@@ -3,7 +3,7 @@ class Shop < ApplicationRecord
 
     before_validation :set_instagram_flag
 
-    validates :name, presence: { message: "ショップ名は必須です" }
+    validates :name, presence: { message: "ショップ名は必須です" }, unless: :is_ai_generated
     validates :is_ai_generated, inclusion: { in: [true, false], message: "AI生成フラグは必須です" }
     validates :is_instagram, inclusion: { in: [true, false], message: "Instagramフラグは必須です" }
 
