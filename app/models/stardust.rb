@@ -1,2 +1,0 @@
-class Stardust < ApplicationRecord
-end

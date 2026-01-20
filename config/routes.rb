@@ -9,11 +9,6 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # API routes
-  resources :demo_shops, only: [:index, :show]
-  resources :stardusts, only: [:index, :create, :show, :update, :destroy]
-
-  # Defines the root path route ("/")
-  # root "posts#index"
   get "shops" => "shops#index"
   post "shops" => "shops#create"
   get "shops/:id" => "shops#show"
