@@ -97,6 +97,11 @@ class ShopsController < ApplicationController
     station_name_from_input = shop_params[:station_name]
     shops_attributes = shop_params.to_h.except(:station_name)
     
+    # URLからクエリパラメータを削除
+    if shops_attributes[:url].present?
+      shops_attributes[:url] = clean_instagram_url(shops_attributes[:url])
+    end
+    
     # station_nameが空でない場合のみ、stationの取得・作成を行う
     unless station_name_from_input.blank?
       station = Station.find_or_create_by(name: station_name_from_input)
@@ -225,7 +230,7 @@ class ShopsController < ApplicationController
   end
 
   def build_shop_generation_prompt
-    instagram_url = shop_params[:url]
+    instagram_url = clean_instagram_url(shop_params[:url])
 
     <<~PROMPT
       あなたは飲食店情報を整理するアシスタントです。
@@ -315,7 +320,7 @@ class ShopsController < ApplicationController
   def create_shop_from_ai_data(shop_data)
     shops_attributes = {
       name: shop_data['name'],
-      url: shop_params[:url],
+      url: clean_instagram_url(shop_params[:url]),
       address: shop_data['address'],
       tel: shop_data['tel'],
       memo: shop_data['memo'],
@@ -337,6 +342,15 @@ class ShopsController < ApplicationController
 
   def shop_params
     params.permit(:name, :url, :station_name, :address, :tel, :memo, :review, :is_ai_generated)
+  end
+
+  # InstagramのURLからクエリパラメータを削除する
+  # 例: https://www.instagram.com/shop/?igsh=xxx -> https://www.instagram.com/shop/
+  def clean_instagram_url(url)
+    return nil if url.blank?
+    URI.parse(url).tap { |uri| uri.query = nil }.to_s
+  rescue URI::InvalidURIError
+    url
   end
 
   def show_params
