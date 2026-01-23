@@ -97,6 +97,11 @@ class ShopsController < ApplicationController
     station_name_from_input = shop_params[:station_name]
     shops_attributes = shop_params.to_h.except(:station_name)
     
+    # URLからクエリパラメータを削除
+    if shops_attributes[:url].present?
+      shops_attributes[:url] = clean_instagram_url(shops_attributes[:url])
+    end
+    
     # station_nameが空でない場合のみ、stationの取得・作成を行う
     unless station_name_from_input.blank?
       station = Station.find_or_create_by(name: station_name_from_input)
