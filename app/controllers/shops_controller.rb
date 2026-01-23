@@ -140,24 +140,36 @@ class ShopsController < ApplicationController
         }
       ]
 
-      uri = URI('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent')
+      # Gemini 2.5 Flashを使用（URL contextをサポート）
+      uri = URI('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent')
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
 
       request = Net::HTTP::Post.new(uri)
       request['X-goog-api-key'] = api_key
       request['Content-Type'] = 'application/json'
-      request.body = { contents: contents }.to_json
+      
+      # URL Context: InstagramのURLを直接読み込み
+      # Google Search: 住所・最寄り駅を検索
+      request.body = {
+        contents: contents,
+        tools: [
+          { url_context: {} },
+          { google_search: {} }
+        ]
+      }.to_json
 
       response = http.request(request)
 
       if response.code == '200'
         result = JSON.parse(response.body)
         
-        if result['candidates'] && result['candidates'][0] && result['candidates'][0]['content']
-          gemini_response = result['candidates'][0]['content']['parts'][0]['text']
-          
-          # JSONをパース
+        candidate = result['candidates'] && result['candidates'][0]
+        content = candidate && candidate['content']
+        parts = content && content['parts']
+        
+        if parts && parts[0] && parts[0]['text']
+          gemini_response = parts[0]['text']
           shop_data = parse_shop_response(gemini_response)
           
           if shop_data
@@ -186,9 +198,11 @@ class ShopsController < ApplicationController
             }, status: :bad_request
           end
         else
+          # Geminiがテキストを返さなかった場合（店舗情報が見つからなかった可能性）
+          Rails.logger.warn "Gemini returned no text content for URL: #{shop_params[:url]}"
           render json: {
             success: false,
-            message: 'Invalid response from Gemini API'
+            message: 'この店舗の情報を取得できませんでした。URLを確認するか、手動で入力してください。'
           }, status: :bad_request
         end
       else
